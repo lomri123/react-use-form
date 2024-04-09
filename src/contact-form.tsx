@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormState } from 'react-dom';
+import useForm from './use-form';
 
 interface FormState {
   name: string;
@@ -7,20 +7,13 @@ interface FormState {
 }
 
 const handleSubmit = async (
-  previousState: FormState | undefined,
-  formData: FormData
-): Promise<FormState> => {
-  // The previousState variable contains the last saved form state
-  console.log('previous saved state ', previousState);
-  // Use get to extract a value from a FormData object
-  const name = formData.get('name');
-  const email = formData.get('email');
-  // The returned value will become our new formState
-  return { name, email };
+  data: FormState // formData is now a regular data
+) => {
+  console.log('formData', data);
 };
 
 const ContactForm: React.FC = () => {
-  const [formState, formAction] = useFormState(handleSubmit, {
+  const { formState, formAction } = useForm<FormState>(handleSubmit, {
     name: '',
     email: '',
   });
