@@ -1,6 +1,7 @@
 import React from 'react';
 import useForm from './use-form';
 import * as yup from 'yup';
+import './App.css';
 
 interface FormState {
   name: string;
@@ -35,16 +36,21 @@ const ContactForm: React.FC = () => {
   );
 
   return (
-    <>
-      formState: {JSON.stringify(formData)}
-      <form action={formAction}>
-        <input {...register('name')} />
-        {errors.name && <div className='error-message'>{errors.name}</div>}
-        <input {...register('email')} />
-        {errors.email && <div className='error-message'>{errors.email}</div>}
-        <input type='submit' />
-      </form>
-    </>
+    <form action={formAction}>
+      <div className='input-row'>
+        <div>
+          <label htmlFor='name'>name</label>
+          <input {...register('name')} id='name' />
+          {errors.name && <div className='error-message'>{errors.name}</div>}
+        </div>
+        <div>
+          <label htmlFor='email'>email</label>
+          <input {...register('email')} id='email' />
+          {errors.email && <div className='error-message'>{errors.email}</div>}
+        </div>
+      </div>
+      <input type='submit' />
+    </form>
   );
 };
 
